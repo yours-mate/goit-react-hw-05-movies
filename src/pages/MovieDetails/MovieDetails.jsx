@@ -30,6 +30,7 @@ const MovieDetails = () => {
 
   return (
     <Container>
+      <button type="button">Go back</button>
       <MovieThumb>
         <img src={movieInfo.banner} alt={movieInfo.title} />
         <MovieOverview>

@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FetchMoviesByName } from 'services/API/MovieAPI';
+import PropTypes from 'prop-types';
+
 const MovieList = ({ query }) => {
   const [searchedMovies, setSearchedMovies] = useState([]);
-  console.log(query);
   useEffect(() => {
     if (query === null) {
       console.log('Enter search query');
+      setSearchedMovies([]);
       return;
     }
     if (query.trim() === '') {
       console.log('Enter search query');
+      setSearchedMovies([]);
       return;
     }
     FetchMoviesByName(query).then(data => setSearchedMovies(data.results));
@@ -29,3 +32,7 @@ const MovieList = ({ query }) => {
 };
 
 export default MovieList;
+
+MovieList.propTypes = {
+  query: PropTypes.string,
+};

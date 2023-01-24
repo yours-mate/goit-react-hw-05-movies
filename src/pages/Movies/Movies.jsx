@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
-// import MovieList from 'components/MovieList/MovieList';
-import { Outlet } from 'react-router-dom';
+import MovieList from 'components/MovieList/MovieList';
+
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
@@ -21,8 +21,7 @@ const Movies = () => {
         />
         <button type="submit">Search</button>
       </form>
-      <Outlet query={searchParams.get('query')} />
-      {console.log(query)}
+      <MovieList query={query} />
     </div>
   );
 };
