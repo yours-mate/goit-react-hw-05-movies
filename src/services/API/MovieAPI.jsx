@@ -51,7 +51,7 @@ export async function FetchMovieReviews(movieId) {
 
 export async function FetchMoviesByName(query) {
   const response = await fetch(
-    `${BASE_URL}/${query}/movie?api_key=${API_KEY}&language=en-US`
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}`
   );
   if (response.ok) {
     return response.json();

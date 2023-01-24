@@ -1,37 +1,29 @@
-// import { Outlet } from 'react-router-dom';
-import { useState } from 'react';
-import { FetchMoviesByName } from '../../services/API/MovieAPI';
-
+import { useSearchParams } from 'react-router-dom';
+// import MovieList from 'components/MovieList/MovieList';
+import { Outlet } from 'react-router-dom';
 const Movies = () => {
-  const [query, setQuery] = useState('');
-  const [searchedMovies, setSearchedMovies] = useState([]);
-
-  const handleNameChange = e => {
-    setQuery(e.currentTarget.value);
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    if (query.trim() === '') {
-      console.log('Enter search query');
-      return;
-    }
-    FetchMoviesByName(query).then(data => setSearchedMovies(data));
-    setQuery('');
-    e.target.reset();
-    console.log(query, searchedMovies);
+    setSearchParams({ query: e.target.searchBar.value });
   };
   return (
-    <form onSubmit={handleFormSubmit}>
-      <input
-        type="text"
-        autoComplete="off"
-        autoFocus
-        placeholder="type here"
-        onChange={handleNameChange}
-      />
-      <button type="submit">Search</button>
-    </form>
+    <div>
+      <form onSubmit={handleFormSubmit}>
+        <input
+          type="text"
+          autoComplete="off"
+          id="searchBar"
+          autoFocus
+          placeholder="type here"
+        />
+        <button type="submit">Search</button>
+      </form>
+      <Outlet query={searchParams.get('query')} />
+      {console.log(query)}
+    </div>
   );
 };
 
