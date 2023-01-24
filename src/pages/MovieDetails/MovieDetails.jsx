@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useParams, Outlet } from 'react-router-dom';
+import { useState, useEffect, Suspense } from 'react';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { FetchMovieInfo } from '../../services/API/MovieAPI';
+import BackLink from 'components/BackLink/BackLink';
 import {
   Container,
   MovieThumb,
@@ -14,9 +15,10 @@ const BASE_IMAGE = 'https://image.tmdb.org/t/p/w400/';
 const MovieDetails = () => {
   const [movieInfo, setMovieInfo] = useState({});
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLink = location.state?.from ?? '/movies';
   useEffect(() => {
     FetchMovieInfo(movieId).then(movie => {
-      console.log(movie);
       setMovieInfo({
         banner: `${BASE_IMAGE}${movie.poster_path}`,
         title: movie.title,
@@ -30,7 +32,7 @@ const MovieDetails = () => {
 
   return (
     <Container>
-      <button type="button">Go back</button>
+      <BackLink to={backLink} />
       <MovieThumb>
         <img src={movieInfo.banner} alt={movieInfo.title} />
         <MovieOverview>
@@ -50,7 +52,9 @@ const MovieDetails = () => {
         <Link to="cast">Cast</Link>
         <Link to="reviews">Reviews</Link>
       </MoreInfo>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </Container>
   );
 };

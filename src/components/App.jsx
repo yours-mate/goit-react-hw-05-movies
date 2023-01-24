@@ -1,11 +1,15 @@
+import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import SharedLayout from './SharedLayout/SharedLayout';
 import Home from '../pages/Home/Home';
-import Movies from '../pages/Movies/Movies';
-import MovieList from './MovieList/MovieList';
-import MovieDetails from 'pages/MovieDetails/MovieDetails';
-import Cast from './Cast/Cast';
-import Reviews from './Reviews/Reviews';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const Movies = lazy(() => import('../pages/Movies/Movies'));
+const MovieList = lazy(() => import('./MovieList/MovieList'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
+const Cast = lazy(() => import('./Cast/Cast'));
+const Reviews = lazy(() => import('./Reviews/Reviews'));
 
 export const App = () => {
   return (
@@ -22,6 +26,7 @@ export const App = () => {
           </Route>
         </Route>
       </Routes>
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };
