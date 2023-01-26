@@ -24,13 +24,20 @@ const Cast = () => {
 
   return (
     <CastList>
-      {cast.map(actor => (
-        <ActorInfo key={actor.name}>
-          <Image src={actor.image} alt={actor.name} />
-          <p>Name: {actor.name}</p>
-          <p>Character: {actor.character}</p>
-        </ActorInfo>
-      ))}
+      {cast.length === 0 && (
+        <p>
+          Cast information is not available. It will be updated in the future.
+        </p>
+      )}
+
+      {cast.length > 0 &&
+        cast.map(actor => (
+          <ActorInfo key={actor.name}>
+            <Image src={actor.image} alt={actor.name} />
+            <p>Name: {actor.name}</p>
+            <p>Character: {actor.character}</p>
+          </ActorInfo>
+        ))}
     </CastList>
   );
 };

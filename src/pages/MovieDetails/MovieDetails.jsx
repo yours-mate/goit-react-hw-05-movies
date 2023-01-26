@@ -49,12 +49,17 @@ const MovieDetails = () => {
 
       <MoreInfo>
         <h5>Additional information</h5>
-        <Link to="cast">Cast</Link>
-        <Link to="reviews">Reviews</Link>
+        <Link to="cast" state={{ from: backLink }}>
+          Cast
+        </Link>
+        <Link to="reviews" state={{ from: backLink }}>
+          Reviews
+        </Link>
       </MoreInfo>
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
       </Suspense>
+      {console.log(location)}
     </Container>
   );
 };
